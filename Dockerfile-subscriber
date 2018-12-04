@@ -1,8 +1,6 @@
 FROM alpine
 MAINTAINER Shingo <shingo0620@gmail.com>
 
-VOLUME /opt/certs
-
 RUN apk add --no-cache mosquitto-clients
 
-CMD ["mosquitto_sub", "-h", "slave1", "-t", "#", "-v"]
+CMD ["mosquitto_sub", "-h", "master", "-t", "#", "-v"]
