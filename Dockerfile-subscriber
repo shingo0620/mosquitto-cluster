@@ -3,4 +3,4 @@ MAINTAINER Shingo <shingo0620@gmail.com>
 
 RUN apk add --no-cache mosquitto-clients
 
-CMD ["mosquitto_sub", "-h", "master", "-t", "#", "-v"]
+CMD ["sh", "-c", "mosquitto_sub -h ${HOST} -t \"#\" -v"]

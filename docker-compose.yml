@@ -25,10 +25,24 @@ services:
     networks:
       - mqtt
   
-  subscriber:
+  subscribe_master:
     build:
       context: ./
       dockerfile: ./Dockerfile-subscriber
+    environment:
+      - HOST=master
+    networks:
+      - mqtt
+    depends_on:
+      - master
+      - slave
+
+  subscribe_slave:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile-subscriber
+    environment:
+      - HOST=slave
     networks:
       - mqtt
     depends_on:
