@@ -13,9 +13,20 @@ services:
     networks:
       - mqtt
     depends_on:
-      - slave
+      - slave1
+      - slave2
     
-  slave:
+  slave1:
+    image: eclipse-mosquitto
+    expose:
+      - "1883"
+    volumes:
+      - "./data:/mosquitto/data"
+      - "./log:/mosquitto/log"
+    networks:
+      - mqtt
+
+  slave2:
     image: eclipse-mosquitto
     expose:
       - "1883"
@@ -35,16 +46,14 @@ services:
       - mqtt
     depends_on:
       - master
-      - slave
 
-  subscribe_slave:
+  subscribe_slave2:
     build:
       context: ./
       dockerfile: ./Dockerfile-subscriber
     environment:
-      - HOST=slave
+      - HOST=slave2
     networks:
       - mqtt
     depends_on:
-      - master
-      - slave
+      - slave2
